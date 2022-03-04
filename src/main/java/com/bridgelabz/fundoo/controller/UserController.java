@@ -95,9 +95,9 @@ public class UserController {
 		return new ResponseEntity<Response>(new Response(HttpStatus.OK.value(), "User Profile Image Uploaded Successfully", profileURL), HttpStatus.OK);
 	}
 	
-	@GetMapping("/kafka/{data}")
-	public String sendDataToKafka(@PathVariable String data){
-		producerService.sendData(data);
+	@PostMapping("/kafka")
+	public String sendDataToKafka(@RequestBody UserDTO userDTO){
+		producerService.sendData(userDTO);
 		return "Success";
 	}
 	

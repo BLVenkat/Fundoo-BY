@@ -1,8 +1,10 @@
 package com.bridgelabz.fundoo.configuration;
 
+import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -25,5 +27,13 @@ public class ApplicationConfig implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(tokenInterceptor);
 	}
+	
+	@Bean
+    public NewTopic generalTopic() {
+        return TopicBuilder.name("BY")
+                  .partitions(3)
+                  .replicas(1)
+                  .build();
+    }
 	
 }
